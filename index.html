@@ -1,318 +1,300 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Tabela de classificação atualizada do Brasileirão Séries A, B, C e D. Estatísticas em tempo real.">
+    <meta name="description" content="Arena Stats: Classificação ao vivo do Brasileirão.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal do Futebol 2025 - Classificação Ao Vivo</title>
+    <title>Arena Stats - Ao Vivo</title>
+
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <style>
+        /* === CORES E TEMA === */
         :root {
-            --primary: #009c3b; /* Verde Brasil */
-            --secondary: #ffdf00; /* Amarelo Brasil */
-            --accent: #002776; /* Azul Brasil */
-            --dark: #1a1a1a;
+            --primary: #009c3b;
+            --accent: #e63946;
             --bg: #f0f2f5;
-            --card-bg: #ffffff;
-            --text-color: #333;
+            --surface: #ffffff;
+            --text: #1a1a1a;
+            --text-sec: #666666;
+            --border: #e0e0e0;
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --row-hover: #f9fafb;
+
+            /* Cores Semânticas (Zonas) */
+            /* Formato: --bg-zona / --text-zona */
+            --z-lib-bg: #e3f2fd; --z-lib-text: #1976d2;
+            --z-pre-bg: #e8f5e9; --z-pre-text: #2e7d32;
+            --z-sul-bg: #fff8e1; --z-sul-text: #f57f17;
+            --z-reb-bg: #ffebee; --z-reb-text: #c62828;
         }
 
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg);
-            margin: 0;
-            padding: 0;
-            color: var(--text-color);
+        [data-theme="dark"] {
+            --primary: #00e676;
+            --bg: #121212;
+            --surface: #1e1e1e;
+            --text: #ffffff;
+            --text-sec: #a0a0a0;
+            --border: #333333;
+            --shadow: 0 4px 12px rgba(0,0,0,0.5);
+            --row-hover: #2a2a2a;
+
+            /* Zonas Dark (Mais suaves para não ofuscar) */
+            --z-lib-bg: rgba(33, 150, 243, 0.15); --z-lib-text: #64b5f6;
+            --z-pre-bg: rgba(76, 175, 80, 0.15); --z-pre-text: #81c784;
+            --z-sul-bg: rgba(255, 193, 7, 0.15); --z-sul-text: #ffd54f;
+            --z-reb-bg: rgba(244, 67, 54, 0.15); --z-reb-text: #e57373;
         }
 
-        /* === HEADER PREMIUM === */
+        body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; transition: background 0.3s; }
+
+        /* === HEADER === */
         header {
-            background: linear-gradient(135deg, var(--primary) 0%, #006400 100%);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border-bottom: 5px solid var(--secondary);
+            background: var(--surface); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 99;
         }
-        header h1 { margin: 0; font-size: 1.8rem; letter-spacing: -1px; }
-        header p { margin: 5px 0 0; font-size: 0.9rem; opacity: 0.9; font-weight: 300; }
-
-        /* === LAYOUT DE NEGÓCIOS (70% Conteúdo / 30% Ads) === */
-        .main-container {
-            max-width: 1100px;
-            margin: 30px auto;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 25px;
-            padding: 0 15px;
-        }
-
-        .content-area { flex: 3; min-width: 300px; }
-        .sidebar { flex: 1; min-width: 250px; display: flex; flex-direction: column; gap: 25px; }
-
-        /* === ABAS BONITAS === */
-        .tabs-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: -2px; /* Cola na tabela */
-            z-index: 10;
-            position: relative;
-            padding-left: 10px;
-        }
-
-        .tab-btn {
-            padding: 12px 25px;
-            border: none;
-            background: #e0e0e0;
-            color: #666;
-            border-radius: 8px 8px 0 0;
-            cursor: pointer;
-            font-weight: bold;
-            font-size: 1rem;
-            transition: 0.3s;
-            box-shadow: inset 0 -2px 5px rgba(0,0,0,0.05);
-        }
-        .tab-btn:hover { background: #d4d4d4; }
-        .tab-btn.active {
-            background: var(--card-bg);
-            color: var(--primary);
-            border-top: 4px solid var(--primary);
-            box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
-        }
-
-        /* === CARTÃO DA TABELA === */
-        .card-table {
-            background: var(--card-bg);
-            border-radius: 8px;
-            border-top-left-radius: 0; /* Encaixe da aba */
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            padding: 20px;
-            overflow: hidden;
-        }
-
-        table { width: 100%; border-collapse: collapse; font-size: 0.95rem; white-space: nowrap; }
+        .brand h1 { margin: 0; font-size: 1.3rem; font-weight: 800; letter-spacing: -0.5px; }
+        .brand span { color: var(--primary); }
+        .live-tag { font-size: 0.75rem; font-weight: 700; color: var(--accent); text-transform: uppercase; display: flex; align-items: center; gap: 6px; margin-top: 4px; }
+        .pulse { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% {opacity:1} 50% {opacity:0.4} 100% {opacity:1} }
         
-        thead tr { background-color: #f8f9fa; border-bottom: 2px solid #eee; }
-        th { padding: 15px 10px; text-align: center; font-weight: 700; color: #555; text-transform: uppercase; font-size: 0.8rem; }
-        
-        td { padding: 12px 10px; text-align: center; border-bottom: 1px solid #f1f1f1; }
-        
-        /* Destaque Time */
-        .team-cell { text-align: left; font-weight: 600; color: var(--dark); display: flex; align-items: center; gap: 12px; }
-        .team-logo { width: 24px; height: 24px; object-fit: contain; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1)); }
+        .theme-toggle { background: none; border: 1px solid var(--border); color: var(--text); padding: 8px; border-radius: 50%; cursor: pointer; }
 
-        /* Zonas de Classificação (Barrinha lateral) */
-        .z-lib { border-left: 4px solid var(--accent); background-color: #f4f8ff; } /* Azul */
-        .z-pre { border-left: 4px solid #00C851; } /* Verde */
-        .z-sula { border-left: 4px solid var(--secondary); } /* Amarelo */
-        .z-reb { border-left: 4px solid #ff4444; background-color: #fff5f5; } /* Vermelho */
+        /* === LAYOUT === */
+        .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; display: flex; flex-wrap: wrap; gap: 25px; }
+        .main-col { flex: 1; min-width: 0; } /* min-width:0 evita quebrar flex */
+        .side-col { width: 300px; display: flex; flex-direction: column; gap: 20px; }
+
+        /* === NAVEGAÇÃO === */
+        .nav-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 10px; scrollbar-width: none; }
+        .nav-scroll::-webkit-scrollbar { display: none; }
         
-        /* === ÁREA DE TEXTO (SEO) - Visual Limpo === */
-        .seo-card {
-            background: white;
-            padding: 25px;
-            border-radius: 8px;
-            margin-top: 25px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-            border-left: 5px solid var(--secondary);
+        .nav-btn {
+            background: var(--surface); border: 1px solid var(--border); color: var(--text-sec);
+            padding: 10px 20px; border-radius: 20px; font-weight: 600; font-size: 0.9rem; white-space: nowrap; cursor: pointer; transition: 0.2s;
         }
-        .seo-card h2 { color: var(--primary); margin-top: 0; font-size: 1.3rem; }
-        .seo-card p { line-height: 1.6; color: #555; }
+        .nav-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 4px 10px rgba(0,156,59,0.2); }
 
-        /* === ANÚNCIOS (Visual Placeholder) === */
-        .ad-slot {
-            background: #fff;
-            border: 2px dashed #ddd;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #aaa;
-            font-weight: bold;
-            font-size: 0.8rem;
-            text-transform: uppercase;
+        /* === TABELA CARD === */
+        .card { background: var(--surface); border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; }
+        .table-wrap { overflow-x: auto; }
+        
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; white-space: nowrap; }
+        th { text-align: center; padding: 15px 10px; background: var(--bg); color: var(--text-sec); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+        td { padding: 12px 10px; border-bottom: 1px solid var(--border); text-align: center; }
+        tr:hover td { background: var(--row-hover); }
+
+        .team { text-align: left; font-weight: 600; display: flex; align-items: center; gap: 10px; min-width: 150px; }
+        .logo { width: 24px; height: 24px; object-fit: contain; }
+
+        /* Cores Linhas */
+        .row-lib td:first-child { border-left: 4px solid var(--z-lib-text); background: var(--z-lib-bg); }
+        .row-pre td:first-child { border-left: 4px solid var(--z-pre-text); background: var(--z-pre-bg); }
+        .row-sul td:first-child { border-left: 4px solid var(--z-sul-text); background: var(--z-sul-bg); }
+        .row-reb td:first-child { border-left: 4px solid var(--z-reb-text); background: var(--z-reb-bg); color: var(--z-reb-text); font-weight: bold; }
+
+        /* === LEGENDA NOVA (Estilo Chips) === */
+        .legend-bar {
+            padding: 15px; border-top: 1px solid var(--border); background: var(--surface);
+            display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
         }
-        .ad-banner { height: 100px; margin-bottom: 20px; width: 100%; }
-        .ad-sidebar { height: 250px; }
-        .ad-sky { height: 400px; }
+        .legend-chip {
+            font-size: 0.75rem; font-weight: 700; padding: 6px 12px; border-radius: 15px;
+            display: flex; align-items: center; gap: 6px;
+        }
+        /* Cores Chips */
+        .chip-lib { background: var(--z-lib-bg); color: var(--z-lib-text); border: 1px solid var(--z-lib-text); }
+        .chip-pre { background: var(--z-pre-bg); color: var(--z-pre-text); border: 1px solid var(--z-pre-text); }
+        .chip-sul { background: var(--z-sul-bg); color: var(--z-sul-text); border: 1px solid var(--z-sul-text); }
+        .chip-reb { background: var(--z-reb-bg); color: var(--z-reb-text); border: 1px solid var(--z-reb-text); }
 
-        /* Responsivo Mobile */
+        /* === ADS & SEO === */
+        .ad-slot { background: var(--surface); border: 2px dashed var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-sec); font-weight: bold; font-size: 0.8rem; }
+        .ad-banner { height: 100px; width: 100%; margin-bottom: 20px; }
+        .ad-square { height: 250px; width: 100%; }
+        
+        .seo-box { background: var(--surface); padding: 20px; border-radius: 12px; border: 1px solid var(--border); margin-top: 20px; }
+        .seo-box h2 { font-size: 1.1rem; color: var(--primary); margin-top: 0; }
+        .seo-box p { font-size: 0.9rem; color: var(--text-sec); line-height: 1.6; }
+
+        /* Mobile */
         @media (max-width: 768px) {
-            .main-container { flex-direction: column; }
-            .sidebar { order: 2; } /* Joga sidebar pro fim no mobile */
+            .side-col { width: 100%; order: 2; }
+            .legend-bar { justify-content: flex-start; overflow-x: auto; }
+            .legend-chip { white-space: nowrap; }
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Portal do Futebol</h1>
-    <p>Estatísticas, Classificação e Probabilidades 2025</p>
+    <div class="brand">
+        <h1>Arena <span>Stats</span></h1>
+        <div class="live-tag"><div class="pulse"></div> Ao Vivo</div>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <i class="ph ph-moon" id="theme-icon" style="font-size:1.2rem"></i>
+    </button>
 </header>
 
-<div class="main-container">
+<div class="container">
     
-    <div class="content-area">
-        
-        <div class="ad-slot ad-banner">
-            Publicidade (Banner Topo)
+    <div class="main-col">
+        <div class="ad-slot ad-banner">Publicidade Topo</div>
+
+        <div class="nav-scroll">
+            <button class="nav-btn active" onclick="loadData('bra.1')">Série A</button>
+            <button class="nav-btn" onclick="loadData('bra.2')">Série B</button>
+            <button class="nav-btn" onclick="loadData('bra.3')">Série C</button>
+            <button class="nav-btn" onclick="loadData('bra.4')">Série D</button>
         </div>
 
-        <div class="tabs-container">
-            <button class="tab-btn active" onclick="loadData('bra.1')">Série A</button>
-            <button class="tab-btn" onclick="loadData('bra.2')">Série B</button>
-            <button class="tab-btn" onclick="loadData('bra.3')">Série C</button>
-            <button class="tab-btn" onclick="loadData('bra.4')">Série D</button>
-        </div>
-
-        <div class="card-table">
-            <div style="overflow-x: auto;">
-                <table id="tabela">
+        <div class="card">
+            <div class="table-wrap">
+                <table id="table">
                     <thead>
                         <tr>
-                            <th width="50">#</th>
-                            <th>Clube</th>
-                            <th width="40">Pts</th>
-                            <th width="40">J</th>
-                            <th width="40">V</th>
-                            <th width="40">E</th>
-                            <th width="40">D</th>
-                            <th width="40">SG</th>
-                            <th width="50">%</th>
+                            <th>#</th>
+                            <th style="text-align:left; padding-left:45px">Clube</th>
+                            <th>Pts</th>
+                            <th>J</th>
+                            <th>V</th>
+                            <th>E</th>
+                            <th>D</th>
+                            <th>SG</th>
+                            <th>%</th>
                         </tr>
                     </thead>
-                    <tbody id="tbody">
-                        </tbody>
+                    <tbody id="tbody"></tbody>
                 </table>
             </div>
-            <p id="status" style="text-align:center; margin-top:20px; color:#777;">Carregando dados...</p>
+            
+            <div id="status" style="padding:30px; text-align:center; color:var(--text-sec)">
+                <i class="ph ph-spinner" style="animation:spin 1s linear infinite; font-size:1.5rem"></i>
+            </div>
+
+            <div class="legend-bar">
+                <div class="legend-chip chip-lib"><i class="ph ph-trophy"></i> Libertadores</div>
+                <div class="legend-chip chip-pre"><i class="ph ph-airplane-tilt"></i> Pré-Liberta</div>
+                <div class="legend-chip chip-sul"><i class="ph ph-globe-hemisphere-west"></i> Sul-Americana</div>
+                <div class="legend-chip chip-reb"><i class="ph ph-warning"></i> Rebaixamento</div>
+            </div>
         </div>
 
-        <div class="seo-card">
-            <h2>Análise da Temporada 2025</h2>
-            <p>O Campeonato Brasileiro de 2025 apresenta uma das disputas mais acirradas dos últimos anos. Com a utilização de dados estatísticos avançados, nosso portal oferece uma visão clara sobre a briga pelo título, classificação para a Copa Libertadores e a luta contra o rebaixamento (Z4).</p>
-            <p>Acompanhe acima a atualização em tempo real das Séries A, B, C e D, com dados fornecidos diretamente pelas APIs oficiais de monitoramento esportivo. A consistência defensiva (SG) tem se mostrado o fator determinante para as equipes que lideram a competição.</p>
+        <div class="seo-box">
+            <h2>Análise Matemática 2025</h2>
+            <p>O algoritmo do <strong>Arena Stats</strong> processa dados da CBF em tempo real. Acompanhe a probabilidade estatística de cada equipe nas Séries A, B, C e D. As zonas coloridas na tabela indicam matematicamente a projeção atual para competições internacionais ou risco de descenso (Z4).</p>
         </div>
-
     </div>
 
-    <div class="sidebar">
-        
-        <div style="background:white; padding:20px; border-radius:8px; box-shadow:0 2px 5px rgba(0,0,0,0.05);">
-            <h3 style="margin:0 0 10px 0; color:var(--primary);">Destaques</h3>
-            <p style="font-size:0.9rem; color:#666; margin:0;">Acompanhe os jogos de hoje e as probabilidades matemáticas de cada equipe.</p>
+    <div class="side-col">
+        <div class="card" style="padding:20px">
+            <h3 style="margin:0 0 10px 0; font-size:1rem">Destaques da Rodada</h3>
+            <p style="font-size:0.85rem; color:var(--text-sec); margin:0">O desempenho defensivo tem sido o diferencial. Equipes com SG (Saldo de Gols) positivo têm 80% mais chance de G4.</p>
         </div>
-
-        <div class="ad-slot ad-sidebar">
-            Anúncio (300x250)
-        </div>
-
-        <div class="ad-slot ad-sky">
-            Anúncio Vertical
-        </div>
-
+        <div class="ad-slot ad-square">Publicidade (Box)</div>
+        <div class="ad-slot ad-square" style="height:400px">Publicidade (Vertical)</div>
     </div>
 
 </div>
 
 <script>
-    // === ENGINE DE DADOS (ESPN API + REDUNDÂNCIA) ===
-    const API_BASE = "https://site.api.espn.com/apis/v2/sports/soccer/";
+    // === DARK MODE ===
+    const html = document.documentElement;
+    const icon = document.getElementById('theme-icon');
     
-    // Lista de Proxies (Se um cair, usa o outro)
+    if (localStorage.getItem('theme') === 'dark') {
+        html.setAttribute('data-theme', 'dark');
+        icon.classList.replace('ph-moon', 'ph-sun');
+    }
+
+    function toggleTheme() {
+        const current = html.getAttribute('data-theme');
+        if (current === 'dark') {
+            html.setAttribute('data-theme', 'light');
+            icon.classList.replace('ph-sun', 'ph-moon');
+            localStorage.setItem('theme', 'light');
+        } else {
+            html.setAttribute('data-theme', 'dark');
+            icon.classList.replace('ph-moon', 'ph-sun');
+            localStorage.setItem('theme', 'dark');
+        }
+    }
+
+    // === API LOGIC ===
+    const API = "https://site.api.espn.com/apis/v2/sports/soccer/";
     const PROXIES = [
-        (url) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
-        (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`
+        u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+        u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`
     ];
 
-    async function loadData(leagueId) {
-        // Atualiza UI das Abas
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    async function loadData(id) {
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
         event.target.classList.add('active');
-
+        
         const tbody = document.getElementById('tbody');
         const status = document.getElementById('status');
         
         tbody.innerHTML = '';
         status.style.display = 'block';
-        status.innerHTML = 'Atualizando classificação...';
 
-        // URL Alvo (Ano 2025 fixo)
-        const targetUrl = `${API_BASE}${leagueId}/standings?season=2025`;
+        const url = `${API}${id}/standings?season=2025`;
         let data = null;
 
-        // Tentativa de conexão (Failover)
-        for (let proxy of PROXIES) {
+        for (let p of PROXIES) {
             try {
-                const res = await fetch(proxy(targetUrl));
-                if (res.ok) {
-                    data = await res.json();
-                    break;
-                }
-            } catch (e) {
-                console.warn("Proxy falhou, tentando próximo...");
-            }
-        }
-
-        if (!data || !data.children) {
-            status.innerHTML = '<span style="color:red">Erro ao carregar. O servidor da ESPN pode estar instável.</span>';
-            return;
+                let r = await fetch(p(url));
+                if (r.ok) { data = await r.json(); break; }
+            } catch(e) {}
         }
 
         status.style.display = 'none';
-        const entries = data.children[0].standings.entries;
 
-        entries.forEach((e, idx) => {
-            const stats = e.stats;
-            const getVal = (n) => stats.find(x => x.name === n)?.value || 0;
-            
-            const pts = getVal('points');
-            const j = getVal('gamesPlayed');
-            const v = getVal('wins');
-            const emp = getVal('ties');
-            const d = getVal('losses');
-            const sg = getVal('pointDifferential');
-            const ap = j > 0 ? Math.round((pts / (j*3))*100) : 0;
+        if (!data || !data.children) {
+            tbody.innerHTML = '<tr><td colspan="9" style="padding:20px;color:red">Erro de conexão.</td></tr>';
+            return;
+        }
 
-            // Lógica de Cores (Visualização Rápida)
-            const pos = idx + 1;
-            let cssClass = '';
+        const list = data.children[0].standings.entries;
+
+        list.forEach((e, i) => {
+            const s = e.stats;
+            const get = n => s.find(x => x.name === n)?.value || 0;
+            const pos = i + 1;
             
-            if (leagueId === 'bra.1') { // Série A
-                if (pos <= 4) cssClass = 'z-lib';          // Libertadores
-                else if (pos <= 6) cssClass = 'z-pre';     // Pré-Libertadores
-                else if (pos <= 12) cssClass = 'z-sula';   // Sulamericana
-                else if (pos >= 17) cssClass = 'z-reb';    // Z4
-            } 
-            else if (leagueId === 'bra.2') { // Série B
-                if (pos <= 4) cssClass = 'z-lib';          // Sobe (Azul)
-                else if (pos >= 17) cssClass = 'z-reb';    // Cai (Vermelho)
+            let css = '';
+            // Regras visuais da tabela (Apenas Série A para exemplo)
+            if (id === 'bra.1') {
+                if (pos <= 4) css = 'row-lib';
+                else if (pos <= 6) css = 'row-pre';
+                else if (pos <= 12) css = 'row-sul';
+                else if (pos >= 17) css = 'row-reb';
+            } else if (id === 'bra.2') {
+                if (pos <= 4) css = 'row-lib';
+                else if (pos >= 17) css = 'row-reb';
             }
 
-            const row = `
-                <tr class="${cssClass}">
-                    <td>${pos}º</td>
-                    <td class="team-cell">
-                        <img src="${e.team.logos?.[0]?.href}" class="team-logo" onerror="this.style.opacity=0">
+            tbody.innerHTML += `
+                <tr class="${css}">
+                    <td><strong>${pos}º</strong></td>
+                    <td class="team">
+                        <img src="${e.team.logos?.[0]?.href}" class="logo" onerror="this.style.display='none'">
                         ${e.team.shortDisplayName}
                     </td>
-                    <td><strong>${pts}</strong></td>
-                    <td>${j}</td>
-                    <td>${v}</td>
-                    <td>${emp}</td>
-                    <td>${d}</td>
-                    <td>${sg}</td>
-                    <td style="font-size:0.85rem; color:#666;">${ap}%</td>
+                    <td><strong>${get('points')}</strong></td>
+                    <td>${get('gamesPlayed')}</td>
+                    <td>${get('wins')}</td>
+                    <td>${get('ties')}</td>
+                    <td>${get('losses')}</td>
+                    <td>${get('pointDifferential')}</td>
+                    <td style="font-size:0.8em; opacity:0.7">${get('gamesPlayed') > 0 ? Math.round((get('points')/(get('gamesPlayed')*3))*100) : 0}%</td>
                 </tr>
             `;
-            tbody.innerHTML += row;
         });
     }
 
-    // Inicia na Série A
-    document.addEventListener('DOMContentLoaded', () => {
-        document.querySelector('.tab-btn').click();
-    });
+    document.addEventListener('DOMContentLoaded', () => document.querySelector('.nav-btn').click());
 </script>
 
 </body>
