@@ -2,7 +2,7 @@
 <html lang="pt-BR" data-theme="light">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Arena Stats: Classificação ao vivo do Brasileirão Séries A, B, C e D. Estatísticas e probabilidades matemáticas.">
+    <meta name="description" content="Arena Stats: Classificação ao vivo do Brasileirão Séries A, B, C e D.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arena Stats - Futebol Ao Vivo</title>
 
@@ -24,7 +24,7 @@
             --shadow: 0 4px 12px rgba(0,0,0,0.08);
             --row-hover: #f9fafb;
 
-            /* Zonas de Classificação */
+            /* Zonas */
             --z-lib-bg: #e3f2fd; --z-lib-text: #1976d2;
             --z-pre-bg: #e8f5e9; --z-pre-text: #2e7d32;
             --z-sul-bg: #fff8e1; --z-sul-text: #f57f17;
@@ -41,7 +41,6 @@
             --shadow: 0 4px 12px rgba(0,0,0,0.5);
             --row-hover: #2a2a2a;
 
-            /* Zonas Dark */
             --z-lib-bg: rgba(33, 150, 243, 0.15); --z-lib-text: #64b5f6;
             --z-pre-bg: rgba(76, 175, 80, 0.15); --z-pre-text: #81c784;
             --z-sul-bg: rgba(255, 193, 7, 0.15); --z-sul-text: #ffd54f;
@@ -50,7 +49,7 @@
 
         body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; transition: background 0.3s; }
 
-        /* === HEADER === */
+        /* HEADER */
         header {
             background: var(--surface); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;
             border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 99;
@@ -63,12 +62,12 @@
         
         .theme-toggle { background: none; border: 1px solid var(--border); color: var(--text); padding: 8px; border-radius: 50%; cursor: pointer; }
 
-        /* === LAYOUT === */
+        /* LAYOUT */
         .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; display: flex; flex-wrap: wrap; gap: 25px; }
         .main-col { flex: 1; min-width: 0; }
         .side-col { width: 300px; display: flex; flex-direction: column; gap: 20px; }
 
-        /* === NAVEGAÇÃO === */
+        /* NAV */
         .nav-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 10px; scrollbar-width: none; }
         .nav-scroll::-webkit-scrollbar { display: none; }
         
@@ -78,7 +77,7 @@
         }
         .nav-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 4px 10px rgba(0,156,59,0.2); }
 
-        /* === TABELA === */
+        /* TABELA */
         .card { background: var(--surface); border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; }
         .table-wrap { overflow-x: auto; }
         
@@ -90,25 +89,23 @@
         .team { text-align: left; font-weight: 600; display: flex; align-items: center; gap: 10px; min-width: 150px; }
         .logo { width: 24px; height: 24px; object-fit: contain; }
 
-        /* Zonas Coloridas */
+        /* Cores Linhas */
         .row-lib td:first-child { border-left: 4px solid var(--z-lib-text); background: var(--z-lib-bg); }
         .row-pre td:first-child { border-left: 4px solid var(--z-pre-text); background: var(--z-pre-bg); }
         .row-sul td:first-child { border-left: 4px solid var(--z-sul-text); background: var(--z-sul-bg); }
         .row-reb td:first-child { border-left: 4px solid var(--z-reb-text); background: var(--z-reb-bg); color: var(--z-reb-text); font-weight: bold; }
 
-        /* Legenda Moderna */
+        /* Legenda */
         .legend-bar { padding: 15px; border-top: 1px solid var(--border); background: var(--surface); display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
         .legend-chip { font-size: 0.75rem; font-weight: 700; padding: 6px 12px; border-radius: 15px; display: flex; align-items: center; gap: 6px; }
-        
         .chip-lib { background: var(--z-lib-bg); color: var(--z-lib-text); border: 1px solid var(--z-lib-text); }
         .chip-pre { background: var(--z-pre-bg); color: var(--z-pre-text); border: 1px solid var(--z-pre-text); }
         .chip-sul { background: var(--z-sul-bg); color: var(--z-sul-text); border: 1px solid var(--z-sul-text); }
         .chip-reb { background: var(--z-reb-bg); color: var(--z-reb-text); border: 1px solid var(--z-reb-text); }
 
-        /* === ADS & SEO === */
-        /* Placeholder de anúncio: Substitua o conteúdo interno pelo código <ins> do Google se usar blocos manuais */
+        /* ADS & SEO */
         .ad-slot { background: var(--surface); border: 2px dashed var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-sec); font-weight: bold; font-size: 0.8rem; overflow: hidden; }
-        .ad-banner { height: 100px; width: 100%; margin-bottom: 20px; }
+        .ad-banner { min-height: 100px; width: 100%; margin-bottom: 20px; border: none; background: transparent; }
         .ad-square { height: 250px; width: 100%; }
         
         .seo-box { background: var(--surface); padding: 20px; border-radius: 12px; border: 1px solid var(--border); margin-top: 20px; }
@@ -118,7 +115,6 @@
         @media (max-width: 768px) {
             .side-col { width: 100%; order: 2; }
             .legend-bar { justify-content: flex-start; overflow-x: auto; }
-            .legend-chip { white-space: nowrap; }
         }
     </style>
 </head>
@@ -137,8 +133,15 @@
 <div class="container">
     
     <div class="main-col">
+        
         <div class="ad-slot ad-banner">
-            Publicidade Topo
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-4597483233731289"
+                 data-ad-slot="8867778254"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
 
         <div class="nav-scroll">
@@ -193,26 +196,24 @@
         </div>
         
         <div class="ad-slot ad-square">
-            Publicidade (Box)
+            Espaço Anúncio Box
         </div>
         
         <div class="ad-slot ad-square" style="height:400px">
-            Publicidade (Vertical)
+            Espaço Anúncio Vertical
         </div>
     </div>
 
 </div>
 
 <script>
-    // === DARK MODE ===
+    // THEME
     const html = document.documentElement;
     const icon = document.getElementById('theme-icon');
-    
     if (localStorage.getItem('theme') === 'dark') {
         html.setAttribute('data-theme', 'dark');
         icon.classList.replace('ph-moon', 'ph-sun');
     }
-
     function toggleTheme() {
         const current = html.getAttribute('data-theme');
         if (current === 'dark') {
@@ -226,7 +227,7 @@
         }
     }
 
-    // === API ENGINE ===
+    // API
     const API = "https://site.api.espn.com/apis/v2/sports/soccer/";
     const PROXIES = [
         u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
@@ -236,58 +237,39 @@
     async function loadData(id) {
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
         event.target.classList.add('active');
-        
         const tbody = document.getElementById('tbody');
         const status = document.getElementById('status');
-        
         tbody.innerHTML = '';
         status.style.display = 'block';
 
         const url = `${API}${id}/standings?season=2025`;
         let data = null;
-
         for (let p of PROXIES) {
-            try {
-                let r = await fetch(p(url));
-                if (r.ok) { data = await r.json(); break; }
-            } catch(e) {}
+            try { let r = await fetch(p(url)); if (r.ok) { data = await r.json(); break; } } catch(e) {}
         }
 
         status.style.display = 'none';
-
         if (!data || !data.children) {
             tbody.innerHTML = '<tr><td colspan="9" style="padding:20px;color:red">Conexão instável. Tente atualizar.</td></tr>';
             return;
         }
 
         const list = data.children[0].standings.entries;
-
         list.forEach((e, i) => {
             const s = e.stats;
             const get = n => s.find(x => x.name === n)?.value || 0;
             const pos = i + 1;
-            
             let css = '';
             if (id === 'bra.1') {
-                if (pos <= 4) css = 'row-lib';
-                else if (pos <= 6) css = 'row-pre';
-                else if (pos <= 12) css = 'row-sul';
-                else if (pos >= 17) css = 'row-reb';
+                if (pos <= 4) css = 'row-lib'; else if (pos <= 6) css = 'row-pre'; else if (pos <= 12) css = 'row-sul'; else if (pos >= 17) css = 'row-reb';
             } else if (id === 'bra.2') {
-                if (pos <= 4) css = 'row-lib';
-                else if (pos >= 17) css = 'row-reb';
-            } else if (id === 'bra.3') {
-                 if (pos <= 8) css = 'row-lib'; // G8 Série C
-                 else if (pos >= 17) css = 'row-reb';
-            }
+                if (pos <= 4) css = 'row-lib'; else if (pos >= 17) css = 'row-reb';
+            } else if (id === 'bra.3') { if (pos <= 8) css = 'row-lib'; else if (pos >= 17) css = 'row-reb'; }
 
             tbody.innerHTML += `
                 <tr class="${css}">
                     <td><strong>${pos}º</strong></td>
-                    <td class="team">
-                        <img src="${e.team.logos?.[0]?.href}" class="logo" onerror="this.style.display='none'">
-                        ${e.team.shortDisplayName}
-                    </td>
+                    <td class="team"><img src="${e.team.logos?.[0]?.href}" class="logo" onerror="this.style.display='none'">${e.team.shortDisplayName}</td>
                     <td><strong>${get('points')}</strong></td>
                     <td>${get('gamesPlayed')}</td>
                     <td>${get('wins')}</td>
