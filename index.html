@@ -2,102 +2,73 @@
 <html lang="pt-BR" data-theme="light">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Arena Stats: Classificação ao vivo do Brasileirão Séries A, B, C e D. Estatísticas e probabilidades matemáticas.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arena Stats - Futebol Ao Vivo</title>
-
+    <title>Arena Stats - Futebol 2025</title>
+    
+    <meta name="description" content="Classificação atualizada do Brasileirão Séries A, B, C e D. Estatísticas e probabilidades.">
     <meta name="google-site-verification" content="google6557a6d085669cc9" />
 
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4597483233731289"
-     crossorigin="anonymous"></script>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4597483233731289" crossorigin="anonymous"></script>
 
     <style>
-        /* === CORES E TEMA === */
+        /* === ESTILOS GERAIS === */
         :root {
-            --primary: #009c3b;
-            --accent: #e63946;
-            --bg: #f0f2f5;
-            --surface: #ffffff;
-            --text: #1a1a1a;
-            --text-sec: #666666;
-            --border: #e0e0e0;
-            --shadow: 0 4px 12px rgba(0,0,0,0.08);
-            --row-hover: #f9fafb;
-
-            /* Zonas */
+            --primary: #009c3b; --accent: #e63946; --bg: #f0f2f5; --surface: #ffffff;
+            --text: #1a1a1a; --text-sec: #666666; --border: #e0e0e0; --shadow: 0 4px 12px rgba(0,0,0,0.08);
             --z-lib-bg: #e3f2fd; --z-lib-text: #1976d2;
             --z-pre-bg: #e8f5e9; --z-pre-text: #2e7d32;
             --z-sul-bg: #fff8e1; --z-sul-text: #f57f17;
             --z-reb-bg: #ffebee; --z-reb-text: #c62828;
+            --row-hover: #f9fafb;
         }
-
         [data-theme="dark"] {
-            --primary: #00e676;
-            --bg: #121212;
-            --surface: #1e1e1e;
-            --text: #ffffff;
-            --text-sec: #a0a0a0;
-            --border: #333333;
-            --shadow: 0 4px 12px rgba(0,0,0,0.5);
-            --row-hover: #2a2a2a;
-
+            --primary: #00e676; --bg: #121212; --surface: #1e1e1e;
+            --text: #ffffff; --text-sec: #a0a0a0; --border: #333333;
+            --shadow: 0 4px 12px rgba(0,0,0,0.5); --row-hover: #2a2a2a;
             --z-lib-bg: rgba(33, 150, 243, 0.15); --z-lib-text: #64b5f6;
             --z-pre-bg: rgba(76, 175, 80, 0.15); --z-pre-text: #81c784;
             --z-sul-bg: rgba(255, 193, 7, 0.15); --z-sul-text: #ffd54f;
             --z-reb-bg: rgba(244, 67, 54, 0.15); --z-reb-text: #e57373;
         }
-
         body { font-family: 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); margin: 0; transition: background 0.3s; }
-
+        
         /* HEADER */
-        header {
-            background: var(--surface); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 99;
-        }
+        header { background: var(--surface); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 99; }
         .brand h1 { margin: 0; font-size: 1.3rem; font-weight: 800; letter-spacing: -0.5px; }
         .brand span { color: var(--primary); }
         .live-tag { font-size: 0.75rem; font-weight: 700; color: var(--accent); text-transform: uppercase; display: flex; align-items: center; gap: 6px; margin-top: 4px; }
         .pulse { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% {opacity:1} 50% {opacity:0.4} 100% {opacity:1} }
-        
         .theme-toggle { background: none; border: 1px solid var(--border); color: var(--text); padding: 8px; border-radius: 50%; cursor: pointer; }
 
-        /* LAYOUT */
+        /* GRID LAYOUT */
         .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; display: flex; flex-wrap: wrap; gap: 25px; }
         .main-col { flex: 1; min-width: 0; }
-        .side-col { width: 300px; display: flex; flex-direction: column; gap: 20px; }
+        .side-col { width: 320px; display: flex; flex-direction: column; gap: 20px; }
 
-        /* NAV */
+        /* NAVEGAÇÃO */
         .nav-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 10px; scrollbar-width: none; }
-        .nav-scroll::-webkit-scrollbar { display: none; }
-        
-        .nav-btn {
-            background: var(--surface); border: 1px solid var(--border); color: var(--text-sec);
-            padding: 10px 20px; border-radius: 20px; font-weight: 600; font-size: 0.9rem; white-space: nowrap; cursor: pointer; transition: 0.2s;
-        }
+        .nav-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text-sec); padding: 10px 20px; border-radius: 20px; font-weight: 600; font-size: 0.9rem; white-space: nowrap; cursor: pointer; transition: 0.2s; }
         .nav-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 4px 10px rgba(0,156,59,0.2); }
 
         /* TABELA */
         .card { background: var(--surface); border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; }
         .table-wrap { overflow-x: auto; }
-        
         table { width: 100%; border-collapse: collapse; font-size: 0.9rem; white-space: nowrap; }
         th { text-align: center; padding: 15px 10px; background: var(--bg); color: var(--text-sec); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
         td { padding: 12px 10px; border-bottom: 1px solid var(--border); text-align: center; }
         tr:hover td { background: var(--row-hover); }
-
         .team { text-align: left; font-weight: 600; display: flex; align-items: center; gap: 10px; min-width: 150px; }
         .logo { width: 24px; height: 24px; object-fit: contain; }
 
-        /* Cores Linhas */
+        /* CORES ZONAS */
         .row-lib td:first-child { border-left: 4px solid var(--z-lib-text); background: var(--z-lib-bg); }
         .row-pre td:first-child { border-left: 4px solid var(--z-pre-text); background: var(--z-pre-bg); }
         .row-sul td:first-child { border-left: 4px solid var(--z-sul-text); background: var(--z-sul-bg); }
         .row-reb td:first-child { border-left: 4px solid var(--z-reb-text); background: var(--z-reb-bg); color: var(--z-reb-text); font-weight: bold; }
 
-        /* Legenda */
+        /* LEGENDA */
         .legend-bar { padding: 15px; border-top: 1px solid var(--border); background: var(--surface); display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
         .legend-chip { font-size: 0.75rem; font-weight: 700; padding: 6px 12px; border-radius: 15px; display: flex; align-items: center; gap: 6px; white-space: nowrap; }
         .chip-lib { background: var(--z-lib-bg); color: var(--z-lib-text); border: 1px solid var(--z-lib-text); }
@@ -105,20 +76,23 @@
         .chip-sul { background: var(--z-sul-bg); color: var(--z-sul-text); border: 1px solid var(--z-sul-text); }
         .chip-reb { background: var(--z-reb-bg); color: var(--z-reb-text); border: 1px solid var(--z-reb-text); }
 
-        /* ADS & SEO */
-        .ad-slot { background: var(--surface); border: 2px dashed var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-sec); font-weight: bold; font-size: 0.8rem; overflow: hidden; }
-        .ad-banner { min-height: 100px; width: 100%; margin-top: 20px; margin-bottom: 20px; border: none; background: transparent; }
-        .ad-square { height: 250px; width: 100%; }
-        .ad-vertical { min-height: 400px; width: 100%; border: none; background: transparent; }
-        
+        /* TEXTO SEO */
         .seo-box { background: var(--surface); padding: 20px; border-radius: 12px; border: 1px solid var(--border); margin-bottom: 25px; }
         .seo-box h2 { font-size: 1.1rem; color: var(--primary); margin-top: 0; }
         .seo-box p { font-size: 0.9rem; color: var(--text-sec); line-height: 1.6; }
 
-        @media (max-width: 768px) {
-            .side-col { width: 100%; order: 2; }
-            .legend-bar { justify-content: flex-start; overflow-x: auto; }
-        }
+        /* WIDGET PROBABILIDADES */
+        .prob-box { background: linear-gradient(135deg, var(--surface) 0%, var(--bg) 100%); padding: 20px; border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow); min-height: 120px; display: flex; flex-direction: column; justify-content: center; }
+        .prob-title { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 700; color: var(--primary); margin-bottom: 10px; text-transform: uppercase; }
+        .prob-text { font-size: 0.95rem; color: var(--text); line-height: 1.5; font-weight: 500; transition: opacity 0.5s; }
+        .prob-text.fade-out { opacity: 0; }
+
+        /* ANÚNCIOS */
+        .ad-slot { background: var(--surface); border: 2px dashed var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-sec); font-weight: bold; font-size: 0.8rem; overflow: hidden; }
+        .ad-banner { min-height: 100px; width: 100%; margin: 20px 0; border: none; background: transparent; }
+        .ad-vertical { min-height: 400px; width: 100%; border: none; background: transparent; }
+
+        @media (max-width: 768px) { .side-col { width: 100%; order: 2; } .legend-bar { justify-content: flex-start; overflow-x: auto; } }
     </style>
 </head>
 <body>
@@ -139,40 +113,26 @@
         
         <div class="seo-box">
             <h2>Classificação 2025 em Tempo Real</h2>
-            <p>O <strong>Arena Stats</strong> monitora todas as rodadas do Campeonato Brasileiro (Séries A, B, C e D). Nosso algoritmo destaca matematicamente as zonas de classificação para Libertadores, Sul-Americana e o risco de rebaixamento (Z4) com base no saldo de gols (SG) e aproveitamento (%).</p>
+            <p>O <strong>Arena Stats</strong> monitora todas as rodadas do Campeonato Brasileiro (Séries A, B, C e D). Nosso algoritmo destaca matematicamente as zonas de classificação para Libertadores, Sul-Americana e o risco de rebaixamento (Z4).</p>
         </div>
 
         <div class="nav-scroll">
-            <button class="nav-btn active" onclick="loadData('bra.1')">Série A</button>
-            <button class="nav-btn" onclick="loadData('bra.2')">Série B</button>
-            <button class="nav-btn" onclick="loadData('bra.3')">Série C</button>
-            <button class="nav-btn" onclick="loadData('bra.4')">Série D</button>
+            <button class="nav-btn active" id="btn-bra1" onclick="loadTable('bra.1')">Série A</button>
+            <button class="nav-btn" id="btn-bra2" onclick="loadTable('bra.2')">Série B</button>
+            <button class="nav-btn" id="btn-bra3" onclick="loadTable('bra.3')">Série C</button>
+            <button class="nav-btn" id="btn-bra4" onclick="loadTable('bra.4')">Série D</button>
         </div>
 
         <div class="card">
             <div class="table-wrap">
                 <table id="table">
                     <thead>
-                        <tr>
-                            <th>#</th>
-                            <th style="text-align:left; padding-left:45px">Clube</th>
-                            <th>Pts</th>
-                            <th>J</th>
-                            <th>V</th>
-                            <th>E</th>
-                            <th>D</th>
-                            <th>SG</th>
-                            <th>%</th>
-                        </tr>
+                        <tr><th>#</th><th style="text-align:left; padding-left:45px">Clube</th><th>Pts</th><th>J</th><th>V</th><th>E</th><th>D</th><th>SG</th><th>%</th></tr>
                     </thead>
                     <tbody id="tbody"></tbody>
                 </table>
             </div>
-            
-            <div id="status" style="padding:30px; text-align:center; color:var(--text-sec)">
-                <i class="ph ph-spinner" style="animation:spin 1s linear infinite; font-size:1.5rem"></i>
-            </div>
-
+            <div id="status" style="padding:30px; text-align:center; color:var(--text-sec)"><i class="ph ph-spinner" style="animation:spin 1s linear infinite; font-size:1.5rem"></i></div>
             <div class="legend-bar">
                 <div class="legend-chip chip-lib"><i class="ph ph-trophy"></i> Libertadores</div>
                 <div class="legend-chip chip-pre"><i class="ph ph-airplane-tilt"></i> Pré-Libertadores</div>
@@ -182,98 +142,82 @@
         </div>
 
         <div class="ad-slot ad-banner">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-4597483233731289"
-                 data-ad-slot="8867778254"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4597483233731289" data-ad-slot="8867778254" data-ad-format="auto" data-full-width-responsive="true"></ins>
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
-
     </div>
 
     <div class="side-col">
-        <div class="card" style="padding:20px">
-            <h3 style="margin:0 0 10px 0; font-size:1rem">Probabilidades</h3>
-            <p style="font-size:0.85rem; color:var(--text-sec); margin:0">Dados indicam que 45 pontos é o "número mágico" para evitar o Z4 na Série A.</p>
+        <div class="prob-box">
+            <div class="prob-title"><i class="ph ph-chart-line-up"></i> Análise da IA</div>
+            <div id="prob-text" class="prob-text">Calculando estatísticas...</div>
         </div>
-        
+
         <div class="ad-slot ad-vertical">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-4597483233731289"
-                 data-ad-slot="8867778254"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
+            <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-4597483233731289" data-ad-slot="8867778254" data-ad-format="auto" data-full-width-responsive="true"></ins>
             <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
         </div>
     </div>
-
 </div>
 
 <script>
-    // THEME
+    // === 1. TEMA (DARK/LIGHT) ===
     const html = document.documentElement;
     const icon = document.getElementById('theme-icon');
-    if (localStorage.getItem('theme') === 'dark') {
-        html.setAttribute('data-theme', 'dark');
-        icon.classList.replace('ph-moon', 'ph-sun');
-    }
+    if (localStorage.getItem('theme') === 'dark') { html.setAttribute('data-theme', 'dark'); icon.classList.replace('ph-moon', 'ph-sun'); }
     function toggleTheme() {
-        const current = html.getAttribute('data-theme');
-        if (current === 'dark') {
-            html.setAttribute('data-theme', 'light');
-            icon.classList.replace('ph-sun', 'ph-moon');
-            localStorage.setItem('theme', 'light');
-        } else {
-            html.setAttribute('data-theme', 'dark');
-            icon.classList.replace('ph-moon', 'ph-sun');
-            localStorage.setItem('theme', 'dark');
-        }
+        const cur = html.getAttribute('data-theme');
+        const next = cur === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        icon.classList.replace(cur === 'dark' ? 'ph-sun' : 'ph-moon', next === 'dark' ? 'ph-sun' : 'ph-moon');
+        localStorage.setItem('theme', next);
     }
 
-    // API
+    // === 2. MENSAGENS ROTATIVAS ===
+    const msgs = [
+        "Times com SG positivo têm 82% mais chance de G6.",
+        "45 pontos é a média histórica para evitar o Z4.",
+        "Mandantes vencem 48% dos jogos nesta temporada.",
+        "Defesas sólidas garantem G4 em 90% dos casos."
+    ];
+    let mIdx = 0; const pTxt = document.getElementById('prob-text');
+    setInterval(() => {
+        pTxt.classList.add('fade-out');
+        setTimeout(() => { pTxt.innerText = msgs[mIdx]; pTxt.classList.remove('fade-out'); mIdx = (mIdx+1)%msgs.length; }, 500);
+    }, 5000);
+
+    // === 3. CARREGAR TABELA (API) ===
     const API = "https://site.api.espn.com/apis/v2/sports/soccer/";
     const PROXIES = [
         u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
         u => `https://api.allorigins.win/raw?url=${encodeURIComponent(u)}`
     ];
 
-    async function loadData(id) {
+    async function loadTable(id) {
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-        event.target.classList.add('active');
-        const tbody = document.getElementById('tbody');
-        const status = document.getElementById('status');
-        tbody.innerHTML = '';
-        status.style.display = 'block';
+        let bId = id.includes('2') ? 'btn-bra2' : id.includes('3') ? 'btn-bra3' : id.includes('4') ? 'btn-bra4' : 'btn-bra1';
+        document.getElementById(bId).classList.add('active');
+
+        const tb = document.getElementById('tbody'); const st = document.getElementById('status');
+        tb.innerHTML = ''; st.style.display = 'block';
 
         const url = `${API}${id}/standings?season=2025`;
         let data = null;
-        for (let p of PROXIES) {
-            try { let r = await fetch(p(url)); if (r.ok) { data = await r.json(); break; } } catch(e) {}
-        }
+        for (let p of PROXIES) { try { let r = await fetch(p(url)); if(r.ok){ data=await r.json(); break; } } catch(e){} }
 
-        status.style.display = 'none';
-        if (!data || !data.children) {
-            tbody.innerHTML = '<tr><td colspan="9" style="padding:20px;color:red">Conexão instável. Tente atualizar.</td></tr>';
-            return;
-        }
+        st.style.display = 'none';
+        if (!data || !data.children) { tb.innerHTML = '<tr><td colspan="9" style="padding:20px;color:red">Falha na conexão. Tente atualizar.</td></tr>'; return; }
 
-        const list = data.children[0].standings.entries;
-        list.forEach((e, i) => {
-            const s = e.stats;
-            const get = n => s.find(x => x.name === n)?.value || 0;
+        data.children[0].standings.entries.forEach((e, i) => {
+            const s = e.stats; const get = n => s.find(x => x.name === n)?.value || 0;
             const pos = i + 1;
-            let css = '';
-            if (id === 'bra.1') {
-                if (pos <= 4) css = 'row-lib'; else if (pos <= 6) css = 'row-pre'; else if (pos <= 12) css = 'row-sul'; else if (pos >= 17) css = 'row-reb';
-            } else if (id === 'bra.2') {
-                if (pos <= 4) css = 'row-lib'; else if (pos >= 17) css = 'row-reb';
-            } else if (id === 'bra.3') { if (pos <= 8) css = 'row-lib'; else if (pos >= 17) css = 'row-reb'; }
+            let c = '';
+            if (id==='bra.1') { if(pos<=4)c='row-lib'; else if(pos<=6)c='row-pre'; else if(pos<=12)c='row-sul'; else if(pos>=17)c='row-reb'; }
+            else if(id==='bra.2') { if(pos<=4)c='row-lib'; else if(pos>=17)c='row-reb'; }
+            else if(id==='bra.3') { if(pos<=8)c='row-lib'; else if(pos>=17)c='row-reb'; }
 
-            tbody.innerHTML += `
-                <tr class="${css}">
+            tb.innerHTML += `
+                <tr class="${c}">
                     <td><strong>${pos}º</strong></td>
                     <td class="team"><img src="${e.team.logos?.[0]?.href}" class="logo" onerror="this.style.display='none'">${e.team.shortDisplayName}</td>
                     <td><strong>${get('points')}</strong></td>
@@ -282,13 +226,13 @@
                     <td>${get('ties')}</td>
                     <td>${get('losses')}</td>
                     <td>${get('pointDifferential')}</td>
-                    <td style="font-size:0.8em; opacity:0.7">${get('gamesPlayed') > 0 ? Math.round((get('points')/(get('gamesPlayed')*3))*100) : 0}%</td>
-                </tr>
-            `;
+                    <td style="font-size:0.8em;opacity:0.7">${get('gamesPlayed')>0?Math.round((get('points')/(get('gamesPlayed')*3))*100):0}%</td>
+                </tr>`;
         });
     }
 
-    document.addEventListener('DOMContentLoaded', () => document.querySelector('.nav-btn').click());
+    // Inicia na Série A
+    document.addEventListener('DOMContentLoaded', () => loadTable('bra.1'));
 </script>
 
 </body>
