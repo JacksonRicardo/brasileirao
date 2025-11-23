@@ -2,11 +2,14 @@
 <html lang="pt-BR" data-theme="light">
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Arena Stats: Classificação ao vivo do Brasileirão.">
+    <meta name="description" content="Arena Stats: Classificação ao vivo do Brasileirão Séries A, B, C e D. Estatísticas e probabilidades matemáticas.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arena Stats - Ao Vivo</title>
+    <title>Arena Stats - Futebol Ao Vivo</title>
 
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4597483233731289"
+     crossorigin="anonymous"></script>
 
     <style>
         /* === CORES E TEMA === */
@@ -21,8 +24,7 @@
             --shadow: 0 4px 12px rgba(0,0,0,0.08);
             --row-hover: #f9fafb;
 
-            /* Cores Semânticas (Zonas) */
-            /* Formato: --bg-zona / --text-zona */
+            /* Zonas de Classificação */
             --z-lib-bg: #e3f2fd; --z-lib-text: #1976d2;
             --z-pre-bg: #e8f5e9; --z-pre-text: #2e7d32;
             --z-sul-bg: #fff8e1; --z-sul-text: #f57f17;
@@ -39,7 +41,7 @@
             --shadow: 0 4px 12px rgba(0,0,0,0.5);
             --row-hover: #2a2a2a;
 
-            /* Zonas Dark (Mais suaves para não ofuscar) */
+            /* Zonas Dark */
             --z-lib-bg: rgba(33, 150, 243, 0.15); --z-lib-text: #64b5f6;
             --z-pre-bg: rgba(76, 175, 80, 0.15); --z-pre-text: #81c784;
             --z-sul-bg: rgba(255, 193, 7, 0.15); --z-sul-text: #ffd54f;
@@ -63,7 +65,7 @@
 
         /* === LAYOUT === */
         .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; display: flex; flex-wrap: wrap; gap: 25px; }
-        .main-col { flex: 1; min-width: 0; } /* min-width:0 evita quebrar flex */
+        .main-col { flex: 1; min-width: 0; }
         .side-col { width: 300px; display: flex; flex-direction: column; gap: 20px; }
 
         /* === NAVEGAÇÃO === */
@@ -76,7 +78,7 @@
         }
         .nav-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); box-shadow: 0 4px 10px rgba(0,156,59,0.2); }
 
-        /* === TABELA CARD === */
+        /* === TABELA === */
         .card { background: var(--surface); border-radius: 12px; border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; }
         .table-wrap { overflow-x: auto; }
         
@@ -88,29 +90,24 @@
         .team { text-align: left; font-weight: 600; display: flex; align-items: center; gap: 10px; min-width: 150px; }
         .logo { width: 24px; height: 24px; object-fit: contain; }
 
-        /* Cores Linhas */
+        /* Zonas Coloridas */
         .row-lib td:first-child { border-left: 4px solid var(--z-lib-text); background: var(--z-lib-bg); }
         .row-pre td:first-child { border-left: 4px solid var(--z-pre-text); background: var(--z-pre-bg); }
         .row-sul td:first-child { border-left: 4px solid var(--z-sul-text); background: var(--z-sul-bg); }
         .row-reb td:first-child { border-left: 4px solid var(--z-reb-text); background: var(--z-reb-bg); color: var(--z-reb-text); font-weight: bold; }
 
-        /* === LEGENDA NOVA (Estilo Chips) === */
-        .legend-bar {
-            padding: 15px; border-top: 1px solid var(--border); background: var(--surface);
-            display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
-        }
-        .legend-chip {
-            font-size: 0.75rem; font-weight: 700; padding: 6px 12px; border-radius: 15px;
-            display: flex; align-items: center; gap: 6px;
-        }
-        /* Cores Chips */
+        /* Legenda Moderna */
+        .legend-bar { padding: 15px; border-top: 1px solid var(--border); background: var(--surface); display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        .legend-chip { font-size: 0.75rem; font-weight: 700; padding: 6px 12px; border-radius: 15px; display: flex; align-items: center; gap: 6px; }
+        
         .chip-lib { background: var(--z-lib-bg); color: var(--z-lib-text); border: 1px solid var(--z-lib-text); }
         .chip-pre { background: var(--z-pre-bg); color: var(--z-pre-text); border: 1px solid var(--z-pre-text); }
         .chip-sul { background: var(--z-sul-bg); color: var(--z-sul-text); border: 1px solid var(--z-sul-text); }
         .chip-reb { background: var(--z-reb-bg); color: var(--z-reb-text); border: 1px solid var(--z-reb-text); }
 
         /* === ADS & SEO === */
-        .ad-slot { background: var(--surface); border: 2px dashed var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-sec); font-weight: bold; font-size: 0.8rem; }
+        /* Placeholder de anúncio: Substitua o conteúdo interno pelo código <ins> do Google se usar blocos manuais */
+        .ad-slot { background: var(--surface); border: 2px dashed var(--border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--text-sec); font-weight: bold; font-size: 0.8rem; overflow: hidden; }
         .ad-banner { height: 100px; width: 100%; margin-bottom: 20px; }
         .ad-square { height: 250px; width: 100%; }
         
@@ -118,7 +115,6 @@
         .seo-box h2 { font-size: 1.1rem; color: var(--primary); margin-top: 0; }
         .seo-box p { font-size: 0.9rem; color: var(--text-sec); line-height: 1.6; }
 
-        /* Mobile */
         @media (max-width: 768px) {
             .side-col { width: 100%; order: 2; }
             .legend-bar { justify-content: flex-start; overflow-x: auto; }
@@ -141,7 +137,9 @@
 <div class="container">
     
     <div class="main-col">
-        <div class="ad-slot ad-banner">Publicidade Topo</div>
+        <div class="ad-slot ad-banner">
+            Publicidade Topo
+        </div>
 
         <div class="nav-scroll">
             <button class="nav-btn active" onclick="loadData('bra.1')">Série A</button>
@@ -177,24 +175,30 @@
             <div class="legend-bar">
                 <div class="legend-chip chip-lib"><i class="ph ph-trophy"></i> Libertadores</div>
                 <div class="legend-chip chip-pre"><i class="ph ph-airplane-tilt"></i> Pré-Liberta</div>
-                <div class="legend-chip chip-sul"><i class="ph ph-globe-hemisphere-west"></i> Sul-Americana</div>
-                <div class="legend-chip chip-reb"><i class="ph ph-warning"></i> Rebaixamento</div>
+                <div class="legend-chip chip-sul"><i class="ph ph-globe-hemisphere-west"></i> Sula</div>
+                <div class="legend-chip chip-reb"><i class="ph ph-warning"></i> Z4</div>
             </div>
         </div>
 
         <div class="seo-box">
-            <h2>Análise Matemática 2025</h2>
-            <p>O algoritmo do <strong>Arena Stats</strong> processa dados da CBF em tempo real. Acompanhe a probabilidade estatística de cada equipe nas Séries A, B, C e D. As zonas coloridas na tabela indicam matematicamente a projeção atual para competições internacionais ou risco de descenso (Z4).</p>
+            <h2>Classificação 2025 em Tempo Real</h2>
+            <p>O <strong>Arena Stats</strong> monitora todas as rodadas do Campeonato Brasileiro (Séries A, B, C e D). Nosso algoritmo destaca matematicamente as zonas de classificação para Libertadores, Sul-Americana e o risco de rebaixamento (Z4) com base no saldo de gols (SG) e aproveitamento (%).</p>
         </div>
     </div>
 
     <div class="side-col">
         <div class="card" style="padding:20px">
-            <h3 style="margin:0 0 10px 0; font-size:1rem">Destaques da Rodada</h3>
-            <p style="font-size:0.85rem; color:var(--text-sec); margin:0">O desempenho defensivo tem sido o diferencial. Equipes com SG (Saldo de Gols) positivo têm 80% mais chance de G4.</p>
+            <h3 style="margin:0 0 10px 0; font-size:1rem">Probabilidades</h3>
+            <p style="font-size:0.85rem; color:var(--text-sec); margin:0">Dados indicam que 45 pontos é o "número mágico" para evitar o Z4 na Série A.</p>
         </div>
-        <div class="ad-slot ad-square">Publicidade (Box)</div>
-        <div class="ad-slot ad-square" style="height:400px">Publicidade (Vertical)</div>
+        
+        <div class="ad-slot ad-square">
+            Publicidade (Box)
+        </div>
+        
+        <div class="ad-slot ad-square" style="height:400px">
+            Publicidade (Vertical)
+        </div>
     </div>
 
 </div>
@@ -222,7 +226,7 @@
         }
     }
 
-    // === API LOGIC ===
+    // === API ENGINE ===
     const API = "https://site.api.espn.com/apis/v2/sports/soccer/";
     const PROXIES = [
         u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
@@ -252,7 +256,7 @@
         status.style.display = 'none';
 
         if (!data || !data.children) {
-            tbody.innerHTML = '<tr><td colspan="9" style="padding:20px;color:red">Erro de conexão.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="9" style="padding:20px;color:red">Conexão instável. Tente atualizar.</td></tr>';
             return;
         }
 
@@ -264,7 +268,6 @@
             const pos = i + 1;
             
             let css = '';
-            // Regras visuais da tabela (Apenas Série A para exemplo)
             if (id === 'bra.1') {
                 if (pos <= 4) css = 'row-lib';
                 else if (pos <= 6) css = 'row-pre';
@@ -273,6 +276,9 @@
             } else if (id === 'bra.2') {
                 if (pos <= 4) css = 'row-lib';
                 else if (pos >= 17) css = 'row-reb';
+            } else if (id === 'bra.3') {
+                 if (pos <= 8) css = 'row-lib'; // G8 Série C
+                 else if (pos >= 17) css = 'row-reb';
             }
 
             tbody.innerHTML += `
